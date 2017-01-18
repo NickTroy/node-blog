@@ -8,6 +8,7 @@ import bluebird from 'bluebird';
 import config from './config';
 import authRoute from './routes/auth';
 import errorHandler from './middlewares/errorHandler';
+import checkToken from './middlewares/checkToken';
 
 const app = express();
 
@@ -36,5 +37,8 @@ app.use(session({
 }));
 
 app.use('/api', authRoute);
+app.get('/test', checkToken, (req, res) => {
+  res.json('test');
+});
 
 app.use(errorHandler);
